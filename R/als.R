@@ -45,6 +45,10 @@
     }
     rss <- sum(unlist(resid)^2)
     RD <- ((oldrss - rss) / oldrss)
+    if (RD < 0) {
+      cat("Warning: negative RD (divergence?). Changing to positive.")
+      RD <- !RD
+    }
     oldrss <- rss
     typ <- if(iter %% 2 == b) "S" else "C"
     cat("Iteration (opt. ", typ, "): ", iter, ", RSS: ", rss, ", RD: ", RD,
